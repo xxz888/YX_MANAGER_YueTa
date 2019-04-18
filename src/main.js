@@ -8,7 +8,15 @@ import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
 import './assets/css/icon.css';
 import './components/common/directives';
 import "babel-polyfill";
+//引入图片查看器
+import Viewer from 'v-viewer'
+import 'viewerjs/dist/viewer.css'
 
+Vue.use(Viewer, {
+    defaultOptions: {
+        zIndex: 9999
+    }
+})
 Vue.config.productionTip = false
 Vue.use(ElementUI, {
     size: 'small'
