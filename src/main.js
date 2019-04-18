@@ -12,6 +12,15 @@ import "babel-polyfill";
 import Viewer from 'v-viewer'
 import 'viewerjs/dist/viewer.css'
 
+
+
+import VideoPlayer from 'vue-video-player'
+import 'video.js/dist/video-js.css'
+import 'vue-video-player/src/custom-theme.css'
+Vue.use(VideoPlayer)
+
+
+
 Vue.use(Viewer, {
     defaultOptions: {
         zIndex: 9999

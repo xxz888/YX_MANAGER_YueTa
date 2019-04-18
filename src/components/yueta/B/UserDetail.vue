@@ -267,7 +267,28 @@
             </el-col>
         </el-row>
         <!--拉黑按钮-->
-        <el-button @click="laheiButton" type="danger" style="margin: 45px" size="info">&nbsp&nbsp&nbsp拉黑&nbsp&nbsp&nbsp</el-button>
+        <el-row style="margin: 45px">
+            <el-col :span="5">
+                <el-button @click="laheiButton" type="danger"  size="info">&nbsp&nbsp&nbsp拉黑&nbsp&nbsp&nbsp</el-button>
+            </el-col>
+            <el-col :span="19">
+                <div>
+                    <p style="font-size: 14px;background-color: #EFEFEF;">
+                        拉黑后不可操作：
+                        该用户不能发布任何约会信息；无法进行邀约；不能进行任何付费项目（例如购买VIP、约币、付费查看照片等），（客户端提示：由于多次被举报，您已被列入黑名单，如有疑问可直接反馈平台客服）
+                        <br>
+                        拉黑后可操作：
+                        可以登录app，查看其他用户信息，申请提现
+                    </p>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </el-col>
+        </el-row >
+
+
     </div>
 </template>
 
@@ -384,6 +405,9 @@
     }
     .content{
         background-color: white;
+    }
+    .bg-purple-light {
+        background: #EFEFEF;
     }
     span{
         font-size: 6px
