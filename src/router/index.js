@@ -71,7 +71,7 @@ export default new Router({
                 },
                 {
                     path: '/BQuestion2',
-                    component: resolve => require(['../components/yueta/D/BQuestion1.vue'], resolve),
+                    component: resolve => require(['../components/yueta/D/BQuestion2.vue'], resolve),
                     meta: { title: '常见问题详情' }
                 },
                 {
@@ -95,7 +95,7 @@ export default new Router({
                     meta: { title: '约豆设置' }
                 },
                 {
-                    path: '/DWriter.',
+                    path: '/DWriter',
                     component: resolve => require(['../components/yueta/D/DWriter.vue'], resolve),
                     meta: { title: '文案设置' }
                 },
