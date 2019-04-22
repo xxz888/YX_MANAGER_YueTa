@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="background-color: white">
         <el-row style="margin: 40px">
             <el-col :span="8">
                 <span>流水号:</span>
