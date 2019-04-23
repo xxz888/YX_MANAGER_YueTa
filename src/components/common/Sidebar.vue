@@ -88,10 +88,10 @@
                         index: 'DLimit',
                         title: '运营管理',
                         subs: [
-                            {
-                                index: 'DLimit',
-                                title: '运营管理'
-                            },
+                            // {
+                            //     index: 'DLimit',
+                            //     title: '运营管理'
+                            // },
                             {
                                 index: 'AServerCenter',
                                 title: '客服中心'

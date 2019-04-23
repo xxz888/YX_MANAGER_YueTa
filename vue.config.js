@@ -1,10 +1,10 @@
 module.exports = {
-    baseUrl: './',
+    baseUrl: '/YueTaManger/',
     productionSourceMap: false,
     devServer: {
         proxy: {
             '/api':{
-                target:'http://jsonplaceholder.typicode.com',
+                target:'http://thegdlife.com:8001',
                 changeOrigin:true,
                 pathRewrite:{
                     '/api':''

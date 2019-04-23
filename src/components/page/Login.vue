@@ -16,7 +16,7 @@
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
                 </div>
-                <p class="login-tips">Tips : 用户名和密码随便填。</p>
+                <!--<p class="login-tips">Tips : 用户名和密码随便填。</p>-->
             </el-form>
         </div>
     </div>
@@ -40,7 +40,18 @@
                 }
             }
         },
+        created(){
+          this.getData();
+        },
         methods: {
+            //请求
+            getData() {
+                this.$axios.get('/api/pub/advertising/'+'1'+'/',{
+                    page: '1'
+                }).then((res) => {
+
+                })
+            },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
