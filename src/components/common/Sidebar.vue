@@ -56,10 +56,6 @@
                                 title: '用户管理',
                             },
                             {
-                                index: 'UserDetail',
-                                title: '用户详情',
-                            },
-                            {
                                 index: 'TaYaoYue',
                                 title: 'ta的邀约'
                             },
