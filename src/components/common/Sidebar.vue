@@ -56,18 +56,9 @@
                                 title: '用户管理',
                             },
                             {
-                                index: 'TaYaoYue',
-                                title: 'ta的邀约'
-                            },
-                            {
                                 index: 'Check1',
                                 title: '认证审核',
                             },
-
-                            {
-                                index: 'Check2',
-                                title: '审核详情'
-                           },
                             {
                                 index: 'Blacklist',
                                 title: '黑名单'

@@ -79,7 +79,7 @@
                     align="center"
                     prop="username"
                     label="昵称"
-                    width="120">
+                    width="70">
             </el-table-column>
             <el-table-column prop="photo" label="头像" align="center" width="70">
                 <!-- 图片的显示 -->
@@ -124,7 +124,7 @@
                     align="center"
                     prop="date_joined"
                     label="注册时间"
-                    width="120"
+                    width="100"
                     :formatter="data_formatter"
             >
             </el-table-column>
@@ -133,7 +133,7 @@
                     align="center"
                     prop="last_login"
                     label="最后登录时间"
-                    width="120"
+                    width="100"
                     :formatter="data_formatter_lastLogin"
             >
             </el-table-column>
@@ -142,7 +142,7 @@
                     align="center"
                     prop="is_black"
                     label="状态"
-                    width="100"
+                    width="60"
                     :formatter="statusFormatter"
             >
             </el-table-column>
@@ -211,7 +211,6 @@
         computed: {
             data() {
                 return this.tableData.filter((d) => {
-                    this.laheiButton = '哈哈哈';
                     return d;
                 })
             }
@@ -329,7 +328,8 @@
                 }
                 return val.last_login.toString().split('T')[0];
 
-            }
+            },
+
         }
     }
 </script>

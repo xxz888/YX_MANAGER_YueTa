@@ -12,7 +12,8 @@
                         <div style="margin: 10px">
                             <el-row>
                                 <el-col :span="10">
-                                    <img :src="form.photo"
+                                    <img  :onerror="defaultImg"
+                                          :src="form.photo"
                                          class="image">
                                 </el-col>
                                 <el-col :span="12">
@@ -24,7 +25,7 @@
                                             <p>{{form.mobile}}</p>
                                         </el-form-item>
                                         <el-form-item class="el-form-item" label="性别:">
-                                            <p>{{form.gender==0?'女':'男'}}</p>
+                                            <p>{{form.gender==0?'男':'女'}}</p>
                                         </el-form-item>
                                         <el-form-item class="el-form-item" label="年龄:">
                                             <p>{{form.age}}</p>
@@ -98,7 +99,7 @@
         </el-row>
         <!--第三行 关于ta-->
         <el-row style="margin-top: 20px;" :gutter="10">
-            <el-card class="box-card" :body-style="{ padding: '0px',height:'250px' }">
+            <el-card class="box-card" :body-style="{ padding: '0px',height:'300px' }">
                 <div class="custom1">
                     <p class="custom2">关于ta</p>
                 </div>
@@ -138,7 +139,18 @@
                                 <el-col :span="8">
                                     <el-form :label-position="positionValue" label-width="80px">
                                         <el-form-item label="学历:">
-                                            <p style=""></p>
+                                            <p style="">
+                                                {{
+                                                form.education=0?'初中':
+                                                form.education=1?'高中':
+                                                form.education=2?'专科':
+                                                form.education=3?'本科':
+                                                form.education=4?'研究生':
+                                                form.education=5?'硕士':
+                                                form.education=6?'博士':
+                                                form.education=7?'博士后':''
+                                                }}
+                                            </p>
                                         </el-form-item>
                                     </el-form>
                                 </el-col>
@@ -170,20 +182,31 @@
                                 <el-col :span="8">
                                     <el-form :label-position="positionValue" label-width="80px">
                                         <el-form-item label="认证:">
-                                            <p style=""></p>
+                                            <p style="">{{form.auth_status?'已认证':'未认证'}}</p>
                                         </el-form-item>
                                     </el-form>
                                 </el-col>
                                 <el-col :span="8">
                                     <el-form :label-position="positionValue" label-width="80px">
                                         <el-form-item label="ta的邀约:">
-                                            <el-button v-if="!form.auth_status" :disabled= 'false' style="margin-left: 10px" size='mini' type="info">查看</el-button>
-                                            <el-button v-if="form.auth_status" @click="showBottomInfoAction" style="margin-left: 10px" size='mini' type="primary">查看</el-button>
+                                            <el-button @click="tayaoyueAction" style="margin-left: 10px" size='mini' type="primary">查看</el-button>
                                         </el-form-item>
                                     </el-form>
                                 </el-col>
                             </el-row>
                         </el-col>
+                        <el-col style="margin-top: 20px">
+                        <el-row >
+                            <el-col :span="8">
+                                <el-form :label-position="positionValue" label-width="80px">
+                                    <el-form-item label="约币数:">
+                                        <p style="">{{form.wallet.date_coin}}</p>
+                                    </el-form-item>
+                                </el-form>
+                            </el-col>
+                        </el-row>
+                    </el-col>
+
                 </div>
             </el-card>
         </el-row>
@@ -351,12 +374,14 @@
                     username: '',
                     wechat: '',
                     weight: '',
+                    wallet:{
+                        date_coin:''
+                    }
                 }
             };
         },
         created(){
             this.getParams();
-
         },
         watch:{
             '$route':'getParams'
@@ -364,7 +389,7 @@
         methods:{
             getParams(){
                 this.user_id = this.$route.query.user_id;
-                if (this.user_id && this.user_id.length >0){
+                if (this.user_id && this.user_id.toString().length >0){
                     this.getData();
                 }
             },
@@ -395,8 +420,14 @@
                     });
                 });
             },
-            showBottomInfoAction(){
-                this.showBottomInfoBOOL = !this.showBottomInfoBOOL ;
+            tayaoyueAction(){
+                var id = this.form.id;
+                this.$router.push({
+                    path:'/TaYaoYue',
+                    query:{
+                        'id':id,
+                    }
+                })
             },
             data_formatter_lastLogin(val){
                 if(val == null){

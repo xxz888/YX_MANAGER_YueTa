@@ -89,7 +89,7 @@
         },
         methods:{
             huifuAction(){
-this.dialogTableVisible = true;
+                this.dialogTableVisible = true;
             }
         }
     }
