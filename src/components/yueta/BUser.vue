@@ -51,11 +51,6 @@
                         <el-button  @click="resetForm">重置</el-button>
                     </el-form-item>
                 </el-col>
-
-
-
-
-
             </el-row>
 
         </el-form>
@@ -152,7 +147,7 @@
                     label="操作"
             >
                 <template slot-scope="scope">
-                    <el-button @click="seeDetailInfo(scope.row)"  type ='primary' size="small">查看</el-button>
+                    <el-button @click="seeDetailInfo(scope.$index,scope.row)"  type ='primary' size="small">详情</el-button>
                     <el-button @click="blackThisRow(scope.row)" :type="scope.row.is_black ? 'success' : 'danger'" size="small"
                                v-html="scope.row.is_black ? '恢复' : '拉黑'"></el-button>
                 </template>
@@ -217,6 +212,9 @@
         },
         created(){
             this.getData();
+        },
+        watch:{
+            '$route':'getData'
         },
         methods: {
             isVipFomatter(val){
@@ -310,7 +308,8 @@
 
             },
             //查看用户详细信息
-            seeDetailInfo(item){
+            seeDetailInfo(index,item){
+                sessionStorage.setItem('XXZ1', JSON.stringify(this.tableData[index]))
                 var user_id = item.id;
                 this.$router.push({
                     path:'/UserDetail',

@@ -204,7 +204,7 @@
             </el-card>
         </el-row>
         <!--第四行 认证信息-->
-        <el-row :gutter=15 style="margin-top: 20px;">
+        <el-row v-if="start_dic.type == 1" :gutter=15 style="margin-top: 20px;">
             <!--认证信息-->
             <el-col :span="24">
                 <div class="grid-content bg-purple">
@@ -256,18 +256,30 @@
                                 </el-col>
                             </el-row>
                         </div>
-                        <div class="bottom" style="margin-left: 40px">
-                            <el-button @click="renzhengtongguoAction" type="primary">认证通过</el-button>
+                        <!--审核中-->
+                        <div v-if="start_dic.status == 2" class="bottom" style="margin-left: 40px">
+                            <el-button @click="renzhengtongguoAction(start_dic.type)" type="primary">认证通过</el-button>
                             &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                            <el-button @click="butongguoAction" type="info">不通过</el-button>
-
+                            <el-button @click="butongguoAction(start_dic.type)" type="info">不通过</el-button>
+                        </div>
+                        <!--审核成功-->
+                        <div v-if="start_dic.status == 1" class="bottom" style="margin-left: 40px">
+                            <p class="custom2">审核成功</p>
+                        </div>
+                        <!--审核失败-->
+                        <div v-if="start_dic.status == 3" class="bottom" style="margin-left: 40px">
+                            <el-form action="">
+                                <el-form-item label="未通过原因:">
+                                    <p>{{start_dic.reason}}</p>
+                                </el-form-item>
+                            </el-form>
                         </div>
                     </el-card>
                 </div>
             </el-col>
         </el-row>
         <!--第四行 职业信息认证-->
-        <el-row  :gutter=15 style="margin-top: 20px;">
+        <el-row v-if="start_dic.type == 2" :gutter=15 style="margin-top: 20px;">
             <!--认证信息-->
             <el-col :span="24">
                 <div class="grid-content bg-purple">
@@ -278,65 +290,65 @@
                         <div style="margin: 10px">
                             <el-row >
                                 <el-col :span="8">
-                                    <div style="text-align: center;height: 65px">
-                                        <span style="line-height:65px">提交审核时间:</span>
-                                        <span style="line-height:65px">2018.9.19  15:30</span>
-                                    </div>
+                                    <el-form action="">
+                                        <el-form-item label="认证时间:">
+                                            <p>{{getLocalTime(start_dic.apply_time)}}</p>
+                                        </el-form-item>
+                                    </el-form>
                                 </el-col>
                             </el-row>
 
                             <el-row >
                                 <el-col :span="8">
                                     <div style="text-align: center;height: 300px">
-                                        <span style="line-height:65px">职业图片:</span>
+                                        <span style="line-height:65px">职业图片1:</span>
                                         <viewer>
-                                            <img src="../../../assets/img/zw.png"
+                                            <img :src="start_dic.pic1"
+                                                 :onerror="defaultImg"
                                                  style="width: 80%;height: 200px">
                                         </viewer>
                                     </div>
                                 </el-col>
                                 <el-col :span="8">
                                     <div style="text-align: center;height: 300px">
-                                        <span style="line-height:65px">职业图片:</span>
+                                        <span style="line-height:65px;font-size: 15px">职业图片2:</span>
                                         <viewer>
-                                            <img src="../../../assets/img/zw.png"
+                                            <img :src="start_dic.pic2"
+                                                 :onerror="defaultImg"
                                                  style="width: 80%;height: 200px">
                                         </viewer>
                                     </div>
                                 </el-col>
                             </el-row>
                         </div>
+                        <!--审核中-->
+                        <div v-if="start_dic.status == 2" class="bottom" style="margin-left: 40px">
+                            <el-button @click="renzhengtongguoAction(start_dic.type)" type="primary">认证通过</el-button>
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                            <el-button @click="butongguoAction(start_dic.type)" type="info">不通过</el-button>
+                        </div>
+                        <!--审核成功-->
+                        <div v-if="start_dic.status == 1" class="bottom" style="margin-left: 40px">
+                            <p class="custom2">审核成功</p>
+                        </div>
+                        <!--审核失败-->
+                        <div v-if="start_dic.status == 3" class="bottom" style="margin-left: 40px">
+                            <el-form action="">
+                                <el-form-item label="未通过原因:">
+                                    <p>{{start_dic.reason}}</p>
+                                </el-form-item>
+                            </el-form>
+                        </div>
                     </el-card>
                 </div>
             </el-col>
         </el-row>
-        <!--拉黑按钮-->
-        <el-row style="margin: 45px">
-            <el-col :span="5">
-                <el-button @click="laheiButton" type="danger"  size="info">&nbsp&nbsp&nbsp拉黑&nbsp&nbsp&nbsp</el-button>
-            </el-col>
-            <el-col :span="19">
-                <div>
-                    <p style="font-size: 14px;background-color: #EFEFEF;">
-                        拉黑后不可操作：
-                        该用户不能发布任何约会信息；无法进行邀约；不能进行任何付费项目（例如购买VIP、约币、付费查看照片等），（客户端提示：由于多次被举报，您已被列入黑名单，如有疑问可直接反馈平台客服）
-                        <br>
-                        拉黑后可操作：
-                        可以登录app，查看其他用户信息，申请提现
-                    </p>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                </div>
-            </el-col>
-        </el-row >
 
         <el-dialog title="审核不通过" :visible.sync="dialogTableVisible">
-            <el-input type="textarea" placeholder="请输入审核不过理由"></el-input>
+            <el-input type="textarea" v-model="liyouInput" placeholder="请输入审核不过理由"></el-input>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogTableVisible = false">取 消</el-button>
-                <el-button type="primary" @click="dialogTableVisible = false">确 定</el-button>
+                <el-button type="primary" @click="butongguoLastAction(start_dic.type)">确 定</el-button>
             </div>
         </el-dialog>
     </div>
@@ -353,6 +365,7 @@
                 start_dic:{},
                 positionValue:'left',
                 dialogTableVisible:false,
+                liyouInput:'',
                 defaultImg: 'this.src="' + require('../../../assets/img_moren.png') + '"',
                 form: {
                     VIP: '',
@@ -395,35 +408,38 @@
         },
         methods:{
             //认证通过
-            renzhengtongguoAction(){
+            renzhengtongguoAction(type){
+                var self = this;
                 this.$confirm('是否认证通过', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'success'
                 }).then(() => {
-
-
-                }).catch(() => {
-
-                });
+                    self.postRenZhengData(type,'1','');
+                }).catch(() => {});
             },
             //认证不通过
-            butongguoAction(){
+            butongguoAction(type){
               this.dialogTableVisible = true;
             },
-            //认证请求
-            postRenZhengData(){
+            butongguoLastAction(type){
+                this.postRenZhengData(type,'3',this.liyouInput);
+            },
+            //认证通过请求
+            postRenZhengData(type,status,reason){
                 var self = this;
                 var dic = {
-                    user_id:'',
-                    type:'',
-                    status:'',
-                    reason:''
+                    user_id:this.user_id,
+                    type:type,
+                    status:status,
+                    reason:reason
                 }
                 this.$axios.post("/api/users/black_list/0/",dic,{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
                     self.$message.success('操作成功');
+                    self.$router.go(-1);//返回上一层
                 })
+                this.dialogTableVisible = false;
             },
             getParams(){
                 this.user_id = this.$route.query.user_id;

@@ -65,6 +65,18 @@
                 style="width: 100%">
             <el-table-column
                     align="center"
+                    prop="status"
+                    label="认证"
+                    width="50"
+                    :formatter="typeFormatter"
+            >
+                <template scope="scope">
+                    <span v-if="scope.row.type == 1" style="color: blue">身份</span>
+                    <span v-else style="color: red">职业</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    align="center"
                     prop="id"
                     label="序号"
                     width="50">
@@ -137,8 +149,12 @@
                     prop="status"
                     label="状态"
                     width="60"
-                    :formatter="statusFormatter"
             >
+                <template scope="scope">
+                    <span v-if="scope.row.status == 1" style="color: #67C23A">成功</span>
+                    <span v-if="scope.row.status == 2" style="color: #E6A23C">待审核</span>
+                    <span v-if="scope.row.status == 3" style="color: #909399">拒绝</span>
+                </template>
             </el-table-column>
             <el-table-column
                     align="center"
@@ -146,7 +162,7 @@
                     label="操作"
             >
                 <template slot-scope="scope">
-                    <el-button @click="seeDetailInfo(scope.$index,scope.row)"  type ='primary' size="small">审核</el-button>
+                    <el-button @click="seeDetailInfo(scope.$index,scope.row)"  type ='primary' size="small">详情</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -210,7 +226,13 @@
         created(){
             this.getData();
         },
+        watch:{
+            '$route':'getData'
+        },
         methods: {
+            typeFormatter(val){
+                return val.type == 1 ? '身份' : '职业';
+            },
             isVipFomatter(val){
                 return val.VIP ?  '是' : '否';
             },
@@ -317,7 +339,6 @@
             seeDetailInfo(index,item){
                 var user_id = item.id;
                 sessionStorage.setItem('XXZ2', JSON.stringify(this.tableData[index]))
-
                     this.$router.push({
                     path:'/Check2',
                     query:{

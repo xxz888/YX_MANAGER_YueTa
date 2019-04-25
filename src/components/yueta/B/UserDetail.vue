@@ -210,64 +210,78 @@
                 </div>
             </el-card>
         </el-row>
+
         <!--第四行 认证信息-->
-        <el-row v-if="showBottomInfoBOOL" :gutter=15 style="margin-top: 20px;">
+        <el-row v-if="shenfenzhengBOOL" :gutter=15 style="margin-top: 20px;">
             <!--认证信息-->
             <el-col :span="24">
                 <div class="grid-content bg-purple">
-                    <el-card class="box-card" :body-style="{ padding: '0px',height:'480px' }">
+                    <el-card class="box-card" :body-style="{ padding: '0px',height:'500px' }">
                         <div class="custom1">
                             <p class="custom2">认证信息</p>
                         </div>
                         <div style="margin: 10px">
-                            <el-row >
+                            <el-row style="margin: 30px;">
                                 <el-col :span="8">
-                                    <div style="text-align: center;height: 65px">
-                                        <span style="line-height:65px">认证时间:</span>
-                                        <span style="line-height:65px">2018.9.19  15:30</span>
-                                    </div>
+                                    <el-form action="">
+                                        <el-form-item label="认证时间:">
+                                            <p>{{getLocalTime(start_dic1.apply_time)}}</p>
+                                        </el-form-item>
+                                    </el-form>
                                 </el-col>
                             </el-row>
 
                             <el-row >
                                 <el-col :span="8">
-                                    <div style="text-align: center;height: 300px">
-                                        <span style="line-height:65px">身份证正面:</span>
+                                    <div style="text-align: center;height: 300px;">
+                                        <span style="line-height:65px;font-size: 15px">身份证正面:</span>
                                         <viewer>
-                                            <img src="../../../assets/img/zw.png"
+                                            <img :src="start_dic1.pic1"
+                                                 :onerror="defaultImg"
                                                  style="width: 80%;height: 200px">
                                         </viewer>
                                     </div>
                                 </el-col>
                                 <el-col :span="8">
                                     <div style="text-align: center;height: 300px">
-                                        <span style="line-height:65px">身份证反面:</span>
+                                        <span style="line-height:65px;font-size: 15px">身份证反面:</span>
                                         <viewer>
-                                            <img src="../../../assets/img/zw.png"
+                                            <img :src="start_dic1.pic2"
+                                                 :onerror="defaultImg"
                                                  style="width: 80%;height: 200px">
                                         </viewer>
                                     </div>
                                 </el-col>
                                 <el-col :span="8">
                                     <div style="text-align: center;height: 300px">
-                                        <span style="line-height:65px">手持身份证照片:</span>
+                                        <span style="line-height:65px;font-size: 15px">手持身份证照片:</span>
                                         <viewer>
-                                            <img src="../../../assets/img/zw.png"
+                                            <img :src="start_dic1.pic3"
+                                                 :onerror="defaultImg"
                                                  style="width: 80%;height: 200px">
                                         </viewer>
                                     </div>
                                 </el-col>
                             </el-row>
                         </div>
-                        <div class="bottom" style="margin-left: 40px">
-                            <el-button type="primary">提交认证</el-button>
+                        <!--审核成功-->
+                        <div v-if="start_dic1.status == 1" class="bottom" style="margin-left: 40px">
+                            <p class="custom2">审核成功</p>
+                        </div>
+                        <!--审核失败-->
+                        <div v-if="start_dic1.status == 3" class="bottom" style="margin-left: 40px">
+                            <el-form action="">
+                                <el-form-item label="未通过原因:">
+                                    <p>{{start_dic1.reason}}</p>
+                                </el-form-item>
+                            </el-form>
                         </div>
                     </el-card>
                 </div>
             </el-col>
         </el-row>
         <!--第四行 职业信息认证-->
-        <el-row v-if="showBottomInfoBOOL" :gutter=15 style="margin-top: 20px;">
+        <el-row v-if="objBool" :gutter=15 style="margin-top: 20px;">
             <!--认证信息-->
             <el-col :span="24">
                 <div class="grid-content bg-purple">
@@ -278,42 +292,62 @@
                         <div style="margin: 10px">
                             <el-row >
                                 <el-col :span="8">
-                                    <div style="text-align: center;height: 65px">
-                                        <span style="line-height:65px">提交审核时间:</span>
-                                        <span style="line-height:65px">2018.9.19  15:30</span>
-                                    </div>
+                                    <el-form action="">
+                                        <el-form-item label="认证时间:">
+                                            <p>{{getLocalTime(start_dic2.apply_time)}}</p>
+                                        </el-form-item>
+                                    </el-form>
                                 </el-col>
                             </el-row>
 
                             <el-row >
                                 <el-col :span="8">
                                     <div style="text-align: center;height: 300px">
-                                        <span style="line-height:65px">职业图片:</span>
+                                        <span style="line-height:65px">职业图片1:</span>
                                         <viewer>
-                                            <img src="../../../assets/img/zw.png"
+                                            <img :src="start_dic2.pic1"
+                                                 :onerror="defaultImg"
                                                  style="width: 80%;height: 200px">
                                         </viewer>
                                     </div>
                                 </el-col>
                                 <el-col :span="8">
                                     <div style="text-align: center;height: 300px">
-                                        <span style="line-height:65px">职业图片:</span>
+                                        <span style="line-height:65px;font-size: 15px">职业图片2:</span>
                                         <viewer>
-                                            <img src="../../../assets/img/zw.png"
+                                            <img :src="start_dic2.pic2"
+                                                 :onerror="defaultImg"
                                                  style="width: 80%;height: 200px">
                                         </viewer>
                                     </div>
                                 </el-col>
                             </el-row>
                         </div>
+                        <!--审核成功-->
+                        <div v-if="start_dic2.status == 1" class="bottom" style="margin-left: 40px">
+                            <p class="custom2">审核成功</p>
+                        </div>
+                        <!--审核失败-->
+                        <div v-if="start_dic2.status == 3" class="bottom" style="margin-left: 40px">
+                            <el-form action="">
+                                <el-form-item label="未通过原因:">
+                                    <p>{{start_dic2.reason}}</p>
+                                </el-form-item>
+                            </el-form>
+                        </div>
                     </el-card>
                 </div>
             </el-col>
         </el-row>
+
         <!--拉黑按钮-->
         <el-row style="margin: 45px">
             <el-col :span="5">
-                <el-button @click="laheiButton" type="danger"  size="info">&nbsp&nbsp&nbsp拉黑&nbsp&nbsp&nbsp</el-button>
+                <el-button @click="laheiButton" :type="start_dic.is_black ? 'success' : 'danger'"
+                           v-html="start_dic.is_black ?
+                           '&nbsp&nbsp&nbsp恢复&nbsp&nbsp&nbsp' :
+                           '&nbsp&nbsp&nbsp拉黑&nbsp&nbsp&nbsp'"
+                ></el-button>
             </el-col>
             <el-col :span="19">
                 <div>
@@ -345,8 +379,13 @@
                 dataArray:[],
                 showBottomInfoBOOL:false,
                 start_dic:{},
+                start_dic1:{},
+                start_dic2:{},
+
+                shenfenzhengBOOL:false,
+                objBool:false,
                 positionValue:'left',
-                defaultImg: 'this.src="' + require('../../../assets/img/zw.png') + '"',
+                defaultImg: 'this.src="' + require('../../../assets/img_moren.png') + '"',
                 form: {
                     VIP: '',
                     abscissa: '',
@@ -389,6 +428,20 @@
         methods:{
             getParams(){
                 this.user_id = this.$route.query.user_id;
+                this.start_dic= JSON.parse(sessionStorage.getItem('XXZ1'));
+
+                for (var item of this.start_dic.auth_list){
+                    if (item.type == 1){
+                        this.shenfenzhengBOOL = true;
+                        this.start_dic1 = item;
+                    }
+                    if (item.type == 2){
+                        this.objBool = true;
+                        this.start_dic2 = item;
+
+                    }
+                }
+
                 if (this.user_id && this.user_id.toString().length >0){
                     this.getData();
                 }
@@ -404,20 +457,25 @@
                 })
             },
             laheiButton(){
-                this.$confirm('拉黑后将限制该用户大部分操作，是否确认拉黑?', '提示', {
-                    confirmButtonText: '确认拉黑',
+
+
+                var user_id = this.$route.query.user_id;
+                var username = this.start_dic.username;
+                var self = this;
+                var status = this.start_dic.is_black ? '恢复' : '拉黑' ;
+                this.$confirm('是否' + status  + '此用户'+ '【'+username+'】',{
+                    confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '拉黑成功!'
+                    self.$axios.get('/api/users/black_list/'+user_id+'/',{headers:{
+                            "Authorization":"JWT " + localStorage.getItem('token')
+                        }}).then(res=>{
+                        self.$message.success('操作成功');
+                        self.$router.go(-1);//返回上一层
                     });
                 }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
+
                 });
             },
             tayaoyueAction(){
@@ -434,7 +492,10 @@
                     return '';
                 }
                 return val.toString().split('T')[0];
-            }
+            },
+            getLocalTime(nS) {
+                return new Date(parseInt(nS) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+            },
         }
     }
 </script>
