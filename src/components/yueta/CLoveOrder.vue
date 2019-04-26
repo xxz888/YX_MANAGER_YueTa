@@ -202,7 +202,6 @@
                     })(i)
 
                 }
-                console.log(this.applyList);
             },
             //点击头像跳转详情
             clickUserInfoButton(val){
