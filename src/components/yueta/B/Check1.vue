@@ -241,7 +241,7 @@
             },
             sexFormatter(val){
                 var sex = val.gender;
-                return sex == 0 ? '女' : sex == 1 ? '男' : '不详';
+                return sex == 0 ? '男' : sex == 1 ? '女' : '不详';
             },
             chaoguanFormatter(val){
                 var sex = val.is_vip;

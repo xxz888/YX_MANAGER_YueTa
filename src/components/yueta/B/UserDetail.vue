@@ -266,15 +266,21 @@
                         </div>
                         <!--审核成功-->
                         <div v-if="start_dic1.status == 1" class="bottom" style="margin-left: 40px">
-                            <p class="custom2">审核成功</p>
+                            <el-alert
+                                    title="审核成功"
+                                    type="success"
+                                    center
+                                    show-icon>
+                            </el-alert>
                         </div>
                         <!--审核失败-->
                         <div v-if="start_dic1.status == 3" class="bottom" style="margin-left: 40px">
-                            <el-form action="">
-                                <el-form-item label="未通过原因:">
-                                    <p>{{start_dic1.reason}}</p>
-                                </el-form-item>
-                            </el-form>
+                            <el-alert
+                                    :title="'未通过原因:'+start_dic1.reason"
+                                    type="error"
+                                    center
+                                    show-icon>
+                            </el-alert>
                         </div>
                     </el-card>
                 </div>
@@ -325,15 +331,21 @@
                         </div>
                         <!--审核成功-->
                         <div v-if="start_dic2.status == 1" class="bottom" style="margin-left: 40px">
-                            <p class="custom2">审核成功</p>
+                            <el-alert
+                                    title="审核成功"
+                                    type="success"
+                                    center
+                                    show-icon>
+                            </el-alert>
                         </div>
                         <!--审核失败-->
                         <div v-if="start_dic2.status == 3" class="bottom" style="margin-left: 40px">
-                            <el-form action="">
-                                <el-form-item label="未通过原因:">
-                                    <p>{{start_dic2.reason}}</p>
-                                </el-form-item>
-                            </el-form>
+                                <el-alert
+                                        :title="'未通过原因:'+start_dic2.reason"
+                                        type="error"
+                                        center
+                                        show-icon>
+                                </el-alert>
                         </div>
                     </el-card>
                 </div>

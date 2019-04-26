@@ -11,8 +11,8 @@
                 <el-col :span="3">
                     <el-form-item>
                         <el-select v-model="formInline.gender" placeholder="请选择性别">
-                            <el-option label="男" value="1"></el-option>
-                            <el-option label="女" value="0"></el-option>
+                            <el-option label="男" value="0"></el-option>
+                            <el-option label="女" value="1"></el-option>
                         </el-select>
                     </el-form-item>
                 </el-col>
@@ -225,7 +225,7 @@
             },
             sexFormatter(val){
                 var sex = val.gender;
-                return sex == 0 ? '女' : sex == 1 ? '男' : '不详';
+                return sex == 0 ? '男' : sex == 1 ? '女' : '不详';
             },
             chaoguanFormatter(val){
                 var sex = val.is_vip;

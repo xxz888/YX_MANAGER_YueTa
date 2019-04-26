@@ -5,29 +5,29 @@
             <el-row :gutter="12">
                 <el-col :span="5">
                     <el-card style="margin-top: 20px;" class="box-card">
-                        <div v-for="o in 2" :key="o" class="text item">
-                            {{'列表内容 ' + o }}
+                        <div class="text item" style="text-align: center">
+                            {{'昨日约币收益 ' + '1000' }}
                         </div>
                     </el-card>
                 </el-col>
                 <el-col :span="5">
                     <el-card style="margin-top: 20px;" class="box-card">
-                        <div v-for="o in 2" :key="o" class="text item">
-                            {{'列表内容 ' + o }}
+                        <div class="text item" style="text-align: center">
+                            {{'累计约币收益(元) ' + '1000' }}
                         </div>
                     </el-card>
                 </el-col>
                 <el-col :span="5">
                     <el-card style="margin-top: 20px;" class="box-card">
-                        <div v-for="o in 2" :key="o" class="text item">
-                            {{'列表内容 ' + o }}
+                        <div class="text item" style="text-align: center">
+                            {{'昨日金额收益(元) ' + '1000' }}
                         </div>
                     </el-card>
                 </el-col>
                 <el-col :span="5">
                     <el-card style="margin-top: 20px;" class="box-card">
-                        <div v-for="o in 2" :key="o" class="text item">
-                            {{'列表内容 ' + o }}
+                        <div class="text item" style="text-align: center">
+                            {{'累计金额收益(元) ' + '1000' }}
                         </div>
                     </el-card>
                 </el-col>
@@ -39,22 +39,22 @@
             <el-row :gutter="12">
                 <el-col :span="5">
                     <el-card style="margin-top: 20px;" class="box-card">
-                        <div v-for="o in 2" :key="o" class="text item">
-                            {{'列表内容 ' + o }}
+                        <div class="text item" style="text-align: center">
+                            {{'昨日活跃人数 ' + '1000' }}
                         </div>
                     </el-card>
                 </el-col>
                 <el-col :span="5">
                     <el-card style="margin-top: 20px;" class="box-card">
-                        <div v-for="o in 2" :key="o" class="text item">
-                            {{'列表内容 ' + o }}
+                        <div class="text item" style="text-align: center">
+                            {{'周活跃人数 ' + '1000' }}
                         </div>
                     </el-card>
                 </el-col>
                 <el-col :span="5">
                     <el-card style="margin-top: 20px;" class="box-card">
-                        <div v-for="o in 2" :key="o" class="text item">
-                            {{'列表内容 ' + o }}
+                        <div class="text item" style="text-align: center">
+                            {{'月活跃人数 ' + '1000' }}
                         </div>
                     </el-card>
                 </el-col>
@@ -66,15 +66,15 @@
             <el-row :gutter="12">
                 <el-col :span="5">
                     <el-card style="margin-top: 20px;" class="box-card">
-                        <div v-for="o in 2" :key="o" class="text item">
-                            {{'列表内容 ' + o }}
+                        <div class="text item" style="text-align: center">
+                            {{'昨日发布约会数 ' + '1000' }}
                         </div>
                     </el-card>
                 </el-col>
                 <el-col :span="5">
                     <el-card style="margin-top: 20px;" class="box-card">
-                        <div v-for="o in 2" :key="o" class="text item">
-                            {{'列表内容 ' + o }}
+                        <div class="text item" style="text-align: center">
+                            {{'昨日约会成功数 ' + '1000' }}
                         </div>
                     </el-card>
                 </el-col>

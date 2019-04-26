@@ -1,8 +1,8 @@
 <template>
     <div style="background-color: white">
         <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
-            <el-tab-pane label="待处理" name="1"></el-tab-pane>
-            <el-tab-pane label="已处理" name="2"></el-tab-pane>
+            <el-tab-pane label="待处理" name="0"></el-tab-pane>
+            <el-tab-pane label="已处理" name="1"></el-tab-pane>
         </el-tabs>
 
 
@@ -56,47 +56,49 @@
                 style="width: 100%">
             <el-table-column
                     fixed
-                    prop="date"
+                    prop="id"
                     label="序号"
                     width="50"
                     align="center"
             >
             </el-table-column>
             <el-table-column
-                    prop="name"
+                    prop="aim_info.mobile"
                     label="被举报账号"
-                    width="100"
+                    width="120"
                     align="center"
             >
             </el-table-column>
             <el-table-column
                     align="center"
-                    prop="province"
+                    prop="aim_info.username"
                     label="被举报人"
                     width="100">
             </el-table-column>
 
             <el-table-column
                     align="center"
-                    prop="address"
+                    prop="aim_gender"
                     label="性别"
-                    width="50">
+                    width="50"
+                    :formatter="sexFormatter"
+            >
             </el-table-column>
             <el-table-column
                     align="center"
-                    prop="address"
+                    prop="inform_times"
                     label="被举报次数"
-                    width="100">
+                    width="90">
             </el-table-column>
             <el-table-column
                     align="center"
-                    prop="city"
+                    prop="own_info.mobile"
                     label="举报账号"
-                    width="100">
+                    width="120">
             </el-table-column>
             <el-table-column
                     align="center"
-                    prop="city"
+                    prop="own_info.username"
                     label="举报人"
                     width="100">
             </el-table-column>
@@ -108,16 +110,16 @@
             </el-table-column>
             <el-table-column
                     align="center"
-                    prop="city"
+                    prop="publish_time"
                     label="举报时间"
                     width="100">
             </el-table-column>
             <el-table-column
                     v-if="showOtherItemBOOL"
                     align="center"
-                    prop="city"
+                    prop="status"
                     label="状态"
-                    width="50">
+                    width="100">
             </el-table-column>
             <el-table-column
                     align="center"
@@ -125,11 +127,22 @@
                     label="操作"
             >
                 <template slot-scope="scope">
-                    <el-button @click="handleEdit(scope.row)" type="text" size="small">查看</el-button>
+                    <el-button @click="seeDetailInfo(scope.$index,scope.row)"  type ='primary' size="small">详情</el-button>
                 </template>
             </el-table-column>
         </el-table>
 
+        <div class="block">
+            <el-pagination
+                    style="margin: 50px auto;"
+                    align="center"
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="currentPage"
+                    :page-size="20"
+                    layout="prev, pager, next, jumper"
+                    :total="1000">
+            </el-pagination>
+        </div>
     </div>
 </template>
 
@@ -138,6 +151,7 @@
         name: "EReport1",
         data () {
             return {
+                currentPage:1,
                 formInline: {
 
                 },
@@ -145,27 +159,52 @@
                     data1:'',
                     data2:''
                 },
-                activeName: '1',
+                activeName: '0',
                 showOtherItemBOOL:false,
-                tableData: [{
-                    date: '1',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '男',
-                    zip: 200333
-                }]
+                tableData: []
             };
         },
+        created(){
+            this.getData(this.activeName);
+        },
+        watch:{
+            '$route':'getData'
+        },
         methods:{
+            sexFormatter(val){
+                var sex = val.aim_info.gender;
+                return sex == 0 ? '男' : sex == 1 ? '女' : '不详';
+            },
+            getData(val){
+                this.$axios.get("/api/users/get_inform/" + this.currentPage.toString() + '/' + val + '/',{headers:{
+                        "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
+                    this.tableData = res.data;
+                })
+            },
             handleClick(tab, event) {
                 console.log(tab, event);
-                if (tab.name == 1){
-                    this.showOtherItemBOOL = false
+                if (tab.name == 0){
+                    this.showOtherItemBOOL = false;
                 } else {
                     this.showOtherItemBOOL = true
                 }
-            }
+                this.getData(this.activeName);
+            },
+            onSubmit(){
+
+            },
+            //分页
+            handleCurrentChange(val) {
+                this.currentPage = val.toString();
+                this.getData(this.activeName);
+            },
+            //查看用户详细信息
+            seeDetailInfo(index,item){
+                sessionStorage.setItem('XXZ3', JSON.stringify(this.tableData[index]))
+                this.$router.push({
+                    path:'/EReport2',
+                })
+            },
         }
     }
 </script>

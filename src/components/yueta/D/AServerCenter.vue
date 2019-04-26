@@ -32,7 +32,7 @@
 
         </el-form>
         <div>消息数据仅保留5天</div>
-        <el-row v-for="item in 2" :key="item" style="margin-top: 20px;">
+        <el-row v-for="item in tableData" :key="item.id" style="margin-top: 20px;">
             <el-card class="box-card" :body-style="{ padding: '0px'}">
                 <div style="margin: 20px;height: 70px;">
                     <el-col :span="3">
@@ -44,29 +44,54 @@
                         </viewer>
                     </el-col>
                     <el-col :span="6">
-                        <p>笑笑(账号:152 0000 0000)</p>
-                        <p>怎么约，有说明吗</p>
-                        <p>回复：可以查看常见问题</p>
+                        <p >{{item.user_info.username}}&nbsp&nbsp(账号:{{item.user_info.mobile}})</p>
+                        <p style="margin-top: 10px">{{item.problem}}</p>
+                        <p style="margin-top: 10px">回复:{{item.answer}}</p>
                     </el-col>
                     <el-col :span="4">
-                        <p>2018.9.23 15:30</p>
+                        <p>{{getLocalTime(item.submit_time)}}</p>
                     </el-col>
                     <el-col :span="4">
-                        <p>已回复</p>
+                        <p>{{item.status == 0 ? '未回复' : '已回复'}}</p>
                     </el-col>
-                    <el-col :span="7">
-                        <el-button @click="huifuAction" type="primary">回复</el-button>
+                    <el-col  :span="7">
+                        <el-button v-if="item.status == 0" @click="huifuAction(item.id)" type="primary">回复</el-button>
+                        <el-button v-if="item.status == 1" disabled type="primary">已回复</el-button>
+
                     </el-col>
                 </div>
-
-                <el-dialog title="回复" :visible.sync="dialogTableVisible">
-                    <el-input type="textarea"></el-input>
+                <el-row style="margin-top: 20px;margin-left: 130px;margin-bottom: 10px;width: 100%" :gutter="10">
+                    <el-col :span="2" v-if="item.pic1 != 0">
+                        <viewer>
+                            <img :src="item.pic1"
+                                 :onerror="defaultImg"
+                                 style="width: 80px;height: 80px;margin-bottom: 10px;">
+                        </viewer>
+                    </el-col>
+                    <el-col :span="2" v-if="item.pic2 != 0">
+                        <viewer>
+                            <img :src="item.pic2"
+                                 :onerror="defaultImg"
+                                 style="width: 80px;height: 80px;margin-bottom: 10px;">
+                        </viewer>
+                    </el-col>
+                    <el-col :span="2" v-if="item.pic3 != 0">
+                        <viewer>
+                            <img :src="item.pic3"
+                                 :onerror="defaultImg"
+                                 style="width: 80px;height: 80px;margin-bottom: 10px;">
+                        </viewer>
+                    </el-col>
+                </el-row>
+                <el-dialog :close-on-click-modal="false" title="回复" :visible.sync="dialogTableVisible">
+                    <el-input type="textarea" v-model="huifuInput"></el-input>
                     <div slot="footer" class="dialog-footer">
                         <el-button @click="dialogTableVisible = false">取 消</el-button>
-                        <el-button type="primary" @click="dialogTableVisible = false">确 定</el-button>
+                        <el-button type="primary" @click="makeSure">确 定</el-button>
                     </div>
                 </el-dialog>
             </el-card>
+
         </el-row>
     </div>
 
@@ -80,6 +105,10 @@
                 formInline: {
 
                 },
+                defaultImg:'this.src="' + require('../../../assets/img_moren.png') + '"',
+                huifuInput:'',
+                huifuId:'',
+                tableData:[],
                 dialogTableVisible:false,
                 form:{
                     data1:'',
@@ -87,9 +116,43 @@
                 },
             }
         },
+        created(){
+            this.getData();
+        },
+        watch:{
+            '$route':'getData'
+        },
         methods:{
-            huifuAction(){
+            getData(){
+                this.$axios.get("/api/users/problem/1/",{headers:{
+                        "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
+                    this.tableData = res.data;
+                })
+            },
+            huifuAction(val){
                 this.dialogTableVisible = true;
+                this.huifuId = val;
+
+            },
+            //回复确认
+            makeSure(){
+                var self = this;
+                var dic = {
+                    'problem_id':this.huifuId,
+                    'answer':this.huifuInput,
+                }
+                this.$axios.post("/api/users/problem/0/",dic,{headers:{
+                        "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
+                    self.$message.success('操作成功');
+                    self.getData();
+                })
+                this.dialogTableVisible = false;
+            },
+            getLocalTime(nS) {
+                return new Date(parseInt(nS) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+            },
+            onSubmit(){
+
             }
         }
     }

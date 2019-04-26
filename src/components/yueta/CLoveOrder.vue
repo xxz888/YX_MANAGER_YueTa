@@ -126,6 +126,18 @@
                 </el-col>
             </el-row>
         </el-card>
+
+        <div class="block">
+            <el-pagination
+                    style="margin: 50px auto;"
+                    align="center"
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="currentPage"
+                    :page-size="20"
+                    layout="prev, pager, next, jumper"
+                    :total="1000">
+            </el-pagination>
+        </div>
     </div>
 </template>
 
@@ -136,7 +148,7 @@
             return {
                 id:'',
                 defaultImg:'this.src="' + require('../../assets/img_moren.png') + '"',
-                currentPage:'1',
+                currentPage:1,
                 tableData:[],
                 applyList:[]
             }
@@ -156,10 +168,15 @@
         },
         methods:{
             getData(){
-                this.$axios.get("/api/users/publish_date/" + this.currentPage + '/',{headers:{
+                this.$axios.get("/api/users/publish_date/" + this.currentPage.toString() + '/',{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
                     this.tableData = res.data;
+                    this.seeAllApplyListAction();
                 })
+            },
+            handleCurrentChange(val) {
+                this.currentPage = val.toString();
+                this.getData();
             },
             vip_formatter(val){
                 return val.VIP ? 'VIP': '非VIP';
@@ -180,14 +197,12 @@
                         self.$axios.post('/api/store/apply_list/',{'date_id':self.tableData[i].id},{headers:{
                                 "Authorization":"JWT " + localStorage.getItem('token')
                             }}).then(res=>{
-                            if (res.data != 0){
                                 self.applyList.push(res.data);
-                            }
                         });
                     })(i)
 
                 }
-
+                console.log(this.applyList);
             },
             //点击头像跳转详情
             clickUserInfoButton(val){

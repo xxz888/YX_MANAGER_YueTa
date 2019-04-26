@@ -92,10 +92,6 @@
                                 title: '常见问题详情'
                             },
                             {
-                                index: 'BQuestion3',
-                                title: '问题分类'
-                            },
-                            {
                                 index: 'CShop1',
                                 title: '商城设置',
                             },
@@ -114,10 +110,6 @@
                             {
                                 index: 'EReport1',
                                 title: '举报中心',
-                            },
-                            {
-                                index: 'EReport2',
-                                title: '举报详情'
                             },
                             {
                                 index: 'FOther1',
