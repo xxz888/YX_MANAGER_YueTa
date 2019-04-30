@@ -236,7 +236,7 @@
                 return sex ? '已拉黑' : '正常';
             },
             getData(){
-                this.$axios.get("/api/users/user/" + this.currentPage + '/',{headers:{
+                this.$axios.get("/api2/users/user/" + this.currentPage + '/',{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
                     this.tableData = res.data;
                 })
@@ -268,7 +268,7 @@
                     finally_on_line_min:this.formInline.finally_on_line_min/1000,
                     page:this.currentPage
                 }
-                this.$axios.post('/api/users/search_user/',dic,{headers:{
+                this.$axios.post('/api2/users/search_user/',dic,{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')
                     }}).then(res=>{
                     self.tableData = res.data;
@@ -296,7 +296,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    self.$axios.get('/api/users/black_list/'+user_id+'/',{headers:{
+                    self.$axios.get('/api2/users/black_list/'+user_id+'/',{headers:{
                             "Authorization":"JWT " + localStorage.getItem('token')
                         }}).then(res=>{
                         this.$message.success('操作成功');

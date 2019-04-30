@@ -168,7 +168,7 @@
         },
         methods:{
             getData(){
-                this.$axios.get("/api/users/publish_date/" + this.currentPage.toString() + '/',{headers:{
+                this.$axios.get("/api2/users/publish_date/" + this.currentPage.toString() + '/',{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
                     this.tableData = res.data;
                     this.seeAllApplyListAction();
@@ -194,7 +194,7 @@
                 this.applyList = [];
                 for (var i = 0 ; i < this.tableData.length ; i++){
                     (function () {
-                        self.$axios.post('/api/store/apply_list/',{'date_id':self.tableData[i].id},{headers:{
+                        self.$axios.post('/api2/store/apply_list/',{'date_id':self.tableData[i].id},{headers:{
                                 "Authorization":"JWT " + localStorage.getItem('token')
                             }}).then(res=>{
                                 self.applyList.push(res.data);

@@ -168,7 +168,7 @@
             },
             hulueAction(){
                 var self = this;
-                this.$axios.post("/api/users/get_inform/0/0/",{'inform_id':this.start_dic.id},{headers:{
+                this.$axios.post("/api2/users/get_inform/0/0/",{'inform_id':this.start_dic.id},{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
                     self.$message.success('操作成功');
                     self.$router.go(-1);//返回上一层
@@ -184,7 +184,7 @@
                     type: 'warning'
                 }).then(() => {
                     var user_id = this.start_dic.aim_id;
-                    this.$axios.get('/api/users/black_list/'+user_id+'/',{headers:{
+                    this.$axios.get('/api2/users/black_list/'+user_id+'/',{headers:{
                             "Authorization":"JWT " + localStorage.getItem('token')
                         }}).then(res=>{
                         self.$message.success('操作成功');
@@ -195,7 +195,7 @@
             },
             getData(){
                 var self = this;
-                this.$axios.post("/api/users/get_inform/0/",{'inform_id':this.start_dic.id},{headers:{
+                this.$axios.post("/api2/users/get_inform/0/",{'inform_id':this.start_dic.id},{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
                     self.$message.success('操作成功');
                     self.$router.go(-1);//返回上一层

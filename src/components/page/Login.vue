@@ -42,7 +42,7 @@
         methods: {
             //提交
             submitForm(formName) {
-                this.$axios.post('/api/users/auth/',
+                this.$axios.post('/api2/users/auth/',
                     {'mobile':this.ruleForm.username,'password':this.ruleForm.password})
                     .then(res=>{
                         if (res.data.id){

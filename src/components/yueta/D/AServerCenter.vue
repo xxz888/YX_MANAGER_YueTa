@@ -124,7 +124,7 @@
         },
         methods:{
             getData(){
-                this.$axios.get("/api/users/problem/1/",{headers:{
+                this.$axios.get("/api2/users/problem/1/",{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
                     this.tableData = res.data;
                 })
@@ -141,7 +141,7 @@
                     'problem_id':this.huifuId,
                     'answer':this.huifuInput,
                 }
-                this.$axios.post("/api/users/problem/0/",dic,{headers:{
+                this.$axios.post("/api2/users/problem/0/",dic,{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
                     self.$message.success('操作成功');
                     self.getData();

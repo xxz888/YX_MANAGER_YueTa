@@ -175,7 +175,7 @@
                 this.applyList = [];
                 for (var i = 0 ; i < this.tableData.length ; i++){
                     (function () {
-                        self.$axios.post('/api/store/apply_list/',{'date_id':self.tableData[i].id},{headers:{
+                        self.$axios.post('/api2/store/apply_list/',{'date_id':self.tableData[i].id},{headers:{
                                 "Authorization":"JWT " + localStorage.getItem('token')
                             }}).then(res=>{
                             if (res.data != 0){
@@ -196,7 +196,7 @@
                     abscissa:0,
                     page:'1',
                 }
-                this.$axios.post('/api/users/dates/',dic,{headers:{
+                this.$axios.post('/api2/users/dates/',dic,{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')
                     }}).then(res=>{
                     self.tableData = res.data;

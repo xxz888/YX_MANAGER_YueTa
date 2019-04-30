@@ -100,7 +100,7 @@
         },
         methods:{
             getData(){
-                this.$axios.get("/api/users/problem/2/",{headers:{
+                this.$axios.get("/api2/users/problem/2/",{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
                     this.tableData = res.data;
                 })
@@ -119,7 +119,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    self.$axios.post("/api/users/adu_problem/",self.editForm,{headers:{
+                    self.$axios.post("/api2/users/adu_problem/",self.editForm,{headers:{
                             "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
 
                         self.$message.success('操作成功');
@@ -147,7 +147,7 @@
             },
             saveEdit(){
                 var self = this;
-                this.$axios.post("/api/users/adu_problem/",this.editForm,{headers:{
+                this.$axios.post("/api2/users/adu_problem/",this.editForm,{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
                     self.$message.success('操作成功');
                     self.getData();

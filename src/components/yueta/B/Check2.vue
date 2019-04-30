@@ -434,7 +434,7 @@
                     status:status,
                     reason:reason
                 }
-                this.$axios.post("/api/users/black_list/0/",dic,{headers:{
+                this.$axios.post("/api2/users/black_list/0/",dic,{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
                     self.$message.success('操作成功');
                     self.$router.go(-1);//返回上一层
@@ -451,7 +451,7 @@
             //用户详情请求
             getData(){
                 var self = this;
-                this.$axios.post("/api/nearby/detail/",{id:this.user_id},{headers:{
+                this.$axios.post("/api2/nearby/detail/",{id:this.user_id},{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
                     self.form = res.data;
                     self.form.last_login = self.data_formatter_lastLogin(self.start_dic.last_login);

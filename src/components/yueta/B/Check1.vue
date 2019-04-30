@@ -253,7 +253,7 @@
             },
             getData(){
                 this.tableData = [];
-                this.$axios.post("/api/users/black_list/1/",{'page':this.currentPage},{headers:{
+                this.$axios.post("/api2/users/black_list/1/",{'page':this.currentPage},{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
                             for(var item of res.data){
                                 item.user_info.apply_time = item.apply_time;
@@ -296,7 +296,7 @@
                     finally_on_line_min:this.formInline.finally_on_line_min/1000,
                     page:this.currentPage
                 }
-                this.$axios.post('/api/users/search_user/',dic,{headers:{
+                this.$axios.post('/api2/users/search_user/',dic,{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')
                     }}).then(res=>{
                     self.tableData = res.data;
@@ -324,7 +324,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    self.$axios.get('/api/users/black_list/'+user_id+'/',{headers:{
+                    self.$axios.get('/api2/users/black_list/'+user_id+'/',{headers:{
                             "Authorization":"JWT " + localStorage.getItem('token')
                         }}).then(res=>{
                         this.$message.success('操作成功');
