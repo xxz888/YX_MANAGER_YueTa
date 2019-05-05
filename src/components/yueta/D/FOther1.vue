@@ -109,7 +109,7 @@
                 <el-row :gutter="10">
                     <el-col :span="24">
                         <el-form :label-position="positionValue" label-width="0px">
-                            <el-form-item label=" " v-for="(item,index) in yuehuiArray" :key="item" >
+                            <el-form-item label=" " v-for="(item,index) in yuehuiArray" :key="item.id" >
                                 <el-input style="width: 180px" type="text"></el-input><span>&nbsp&nbsp打赏金额，扣&nbsp&nbsp</span>
                                 <el-input style="width: 180px" type="text"></el-input><span>&nbsp&nbsp约豆/次&nbsp&nbsp</span>
                                 <el-button v-if="!(index == 0)" @click="delItem(index)" size="mini" type="danger" icon="el-icon-delete" circle></el-button>

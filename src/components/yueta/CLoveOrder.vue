@@ -63,7 +63,7 @@
                                 placement="right"
                                 width="440"
                                 trigger="click">
-                            <el-table :data="applyList[index]">
+                            <el-table :data="applyList">
                                 <el-table-column width="70" prop="photo">
                                     <template slot-scope="scope">
                                         <div style="width: 100%;text-align: center">
@@ -85,7 +85,7 @@
                                     </template>
                                 </el-table-column>
                             </el-table>
-                            <el-button @click="" slot="reference" type="primary">查看报名</el-button>
+                            <el-button @click="seeAllApplyListAction(item.id)" slot="reference" type="primary">查看报名</el-button>
                         </el-popover>
                         <div style="width: 100%;text-align: left;margin-top: 20px;color: darkgrey;">
                             <span>报名人数:{{item.apply_number}}</span>
@@ -171,7 +171,6 @@
                 this.$axios.get("/api2/users/publish_date/" + this.currentPage.toString() + '/',{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
                     this.tableData = res.data;
-                    this.seeAllApplyListAction();
                 })
             },
             handleCurrentChange(val) {
@@ -189,19 +188,14 @@
 
             },
             //报名列表
-            seeAllApplyListAction(){
+            seeAllApplyListAction(val){
                 var self = this;
                 this.applyList = [];
-                for (var i = 0 ; i < this.tableData.length ; i++){
-                    (function () {
-                        self.$axios.post('/api2/store/apply_list/',{'date_id':self.tableData[i].id},{headers:{
-                                "Authorization":"JWT " + localStorage.getItem('token')
-                            }}).then(res=>{
-                                self.applyList.push(res.data);
-                        });
-                    })(i)
-
-                }
+                this.$axios.post('/api2/store/apply_list/',{'date_id':val},{headers:{
+                        "Authorization":"JWT " + localStorage.getItem('token')
+                    }}).then(res=>{
+                    self.applyList = res.data;
+                });
             },
             //点击头像跳转详情
             clickUserInfoButton(val){

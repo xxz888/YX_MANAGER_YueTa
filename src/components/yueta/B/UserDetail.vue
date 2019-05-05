@@ -442,17 +442,23 @@
                 this.user_id = this.$route.query.user_id;
                 this.start_dic= JSON.parse(sessionStorage.getItem('XXZ1'));
 
-                for (var item of this.start_dic.auth_list){
-                    if (item.type == 1){
-                        this.shenfenzhengBOOL = true;
-                        this.start_dic1 = item;
-                    }
-                    if (item.type == 2){
-                        this.objBool = true;
-                        this.start_dic2 = item;
-
+                if (this.start_dic){
+                    var array =  this.start_dic.auth_list;
+                    if (array.length>0){
+                        for (var item of this.start_dic.auth_list){
+                            if (item.type == 1){
+                                this.shenfenzhengBOOL = true;
+                                this.start_dic1 = item;
+                            }
+                            if (item.type == 2){
+                                this.objBool = true;
+                                this.start_dic2 = item;
+                            }
+                        }
                     }
                 }
+
+
 
                 if (this.user_id && this.user_id.toString().length >0){
                     this.getData();
@@ -464,8 +470,11 @@
                 this.$axios.post("/api2/nearby/detail/",{id:this.user_id},{headers:{
                         "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
                             self.form = res.data;
-                            self.form.last_login = self.data_formatter_lastLogin(self.start_dic.last_login);
-                            self.form.date_joined = self.data_formatter_lastLogin(self.start_dic.date_joined);
+                            if (self.start_dic){
+                                self.form.last_login = self.data_formatter_lastLogin(self.start_dic.last_login);
+                                self.form.date_joined = self.data_formatter_lastLogin(self.start_dic.date_joined);
+                            }
+
                 })
             },
             laheiButton(){

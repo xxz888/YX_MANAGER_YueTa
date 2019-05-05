@@ -176,10 +176,13 @@
                 return sex == 0 ? '男' : sex == 1 ? '女' : '不详';
             },
             getData(val){
-                this.$axios.get("/api2/users/get_inform/" + this.currentPage.toString() + '/' + val + '/',{headers:{
-                        "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
-                    this.tableData = res.data;
-                })
+                if (this.activeName){
+                    this.$axios.get("/api2/users/get_inform/" + this.currentPage.toString() + '/' + this.activeName + '/',{headers:{
+                            "Authorization":"JWT " + localStorage.getItem('token')}}).then((res)=>{
+                        this.tableData = res.data;
+                    })
+                }
+
             },
             handleClick(tab, event) {
                 console.log(tab, event);
